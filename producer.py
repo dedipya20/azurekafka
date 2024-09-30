@@ -10,7 +10,9 @@ producer = KafkaProducer(
 )
 
 # Load data using pandas (replace 'your_file.csv' with the actual file)
-df = pd.read_csv('stock_data_new.csv')
+
+file = '/Downloads/stock_data_new.csv'
+df = pd.read_csv(file)
 
 # Sending each row as a message to the Kafka topic
 for index, row in df.iterrows():
