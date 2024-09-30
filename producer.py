@@ -19,11 +19,11 @@ for index, row in df.iterrows():
         'index': row['Index'],
         'date': row['Date'],
         'open': row['Open'],
-        'high': row['High']
-	    'low' : row['Low']
-        'close' : row['Close']	
-        'adj close' : row['Adj Close']	
-        'volume' : row['Volume']	
+        'high': row['High'],
+	'low' : row['Low'],
+        'close' : row['Close'],	
+        'adj close' : row['Adj Close'],	
+        'volume' : row['Volume'],	
         'closeusd' : row['CloseUSD']
 }
     producer.send('stock_topic', value=data)
