@@ -11,7 +11,6 @@ conn = mysql.connector.connect(
     database="stock_data_new"
 )
 cursor = conn.cursor()
-
 # Create a Kafka consumer
 consumer = KafkaConsumer(
     'stock_topic',
