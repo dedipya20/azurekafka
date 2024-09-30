@@ -16,11 +16,16 @@ df = pd.read_csv('stock_data_new.csv')
 # Sending each row as a message to the Kafka topic 
 for index, row in df.iterrows():
     data = {
-        'index_name': row['Index'],
-        'timestamp': row['Timestamp'],
-        'stock_price': row['Price'],
-        'trading_volume': row['Volume']
-    }
+        'index': row['Index'],
+        'date': row['Date'],
+        'open': row['Open'],
+        'high': row['High']
+	    'low' : row['Low']
+        'close' : row['Close']	
+        'adj close' : row['Adj Close']	
+        'volume' : row['Volume']	
+        'closeusd' : row['CloseUSD']
+}
     producer.send('stock_topic', value=data)
     time.sleep(1)
 
