@@ -14,9 +14,8 @@ cursor = conn.cursor()
 # Create the 'stocks' table if it doesn't already exist
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS stocks (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        index_name VARCHAR(255),
-        timestamp DATETIME,
+        index VARCHAR(255),
+        date DATE,
         open DECIMAL(10, 2),
         high DECIMAL(10, 2),
         low DECIMAL(10, 2),
@@ -44,7 +43,7 @@ for message in consumer:
     # Check if all necessary fields are present in the data
     if all(key in data for key in ['index', 'date', 'open', 'high', 'low', 'close', 'adj close', 'volume', 'closeusd']):
         cursor.execute("""
-            INSERT INTO stocks (index_name, timestamp, open, high, low, close, adj_close, volume, closeusd)
+            INSERT INTO stocks (index, date, open, high, low, close, adj_close, volume, closeusd)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (data['index'], data['date'], data['open'], data['high'], data['low'], data['close'], data['adj close'], data['volume'], data['closeusd']))
         conn.commit()
