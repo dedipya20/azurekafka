@@ -8,7 +8,7 @@ conn = mysql.connector.connect(
     host="localhost",
     user="root",
     password="Deepu@2003",
-    database="stock_data_new"
+    database="stock_data_new.csv"
 )
 cursor = conn.cursor()
 # Create a Kafka consumer
