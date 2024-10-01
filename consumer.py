@@ -15,7 +15,7 @@ cursor = conn.cursor()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS stocks (
         index_name VARCHAR(255),
-        timestamp VARCHAR(255),
+        date VARCHAR(255),
         open DECIMAL(10, 2),
         high DECIMAL(10, 2),
         low DECIMAL(10, 2),
