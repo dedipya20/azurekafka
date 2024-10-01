@@ -43,7 +43,7 @@ for message in consumer:
     # Check if all necessary fields are present in the data
     if all(key in data for key in ['index', 'date', 'open', 'high', 'low', 'close', 'adj close', 'volume', 'closeusd']):
         cursor.execute("""
-            INSERT INTO stocks (index_name, timestamp, open, high, low, close, adj_close, volume, closeusd)
+            INSERT INTO stocks (index_name, date, open, high, low, close, adj_close, volume, closeusd)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (data['index'], data['date'], data['open'], data['high'], data['low'], data['close'], data['adj close'], data['volume'], data['closeusd']))
         conn.commit()
