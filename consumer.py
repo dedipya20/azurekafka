@@ -24,7 +24,7 @@ consumer = KafkaConsumer(
 for message in consumer:
     data = message.value
     cursor.execute("""
-        INSERT INTO stocks (index_name, timestamp, stock_price, trading_volume)
+        INSERT INTO stocks (index, date, open, high, low , close, adj close, volume, closeusd)
         VALUES (%s, %s, %s, %s)
     """, (data['index'], data['date'], data['open'], data['high'], data['low'], data['close'], data['adj close'], data['volume'], data['closeusd']))
     conn.commit()
