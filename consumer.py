@@ -11,6 +11,23 @@ conn = mysql.connector.connect(
 )
 cursor = conn.cursor()
 
+# Create the 'stocks' table if it doesn't already exist
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS stocks (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        index_name VARCHAR(255),
+        timestamp DATETIME,
+        open DECIMAL(10, 2),
+        high DECIMAL(10, 2),
+        low DECIMAL(10, 2),
+        close DECIMAL(10, 2),
+        adj_close DECIMAL(10, 2),
+        volume BIGINT,
+        closeusd DECIMAL(10, 2)
+    );
+""")
+conn.commit()
+
 # Create a Kafka consumer
 consumer = KafkaConsumer(
     'stock_topic',
