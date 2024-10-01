@@ -26,7 +26,7 @@ for message in consumer:
     cursor.execute("""
         INSERT INTO stocks (index_name, timestamp, stock_price, trading_volume)
         VALUES (%s, %s, %s, %s)
-    """, (data['index_name'], data['timestamp'], data['stock_price'], data['trading_volume']))
+    """, (data['index'], data['date'], data['open'], data['high'], data['low'], data['close'], data['adj close'], data['volume'], data['closeusd']))
     conn.commit()
 
 cursor.close()
