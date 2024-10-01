@@ -1,4 +1,3 @@
-# consumer.py
 from kafka import KafkaConsumer
 import mysql.connector
 import json
@@ -11,6 +10,7 @@ conn = mysql.connector.connect(
     database="stock_data_new"
 )
 cursor = conn.cursor()
+
 # Create a Kafka consumer
 consumer = KafkaConsumer(
     'stock_topic',
@@ -23,11 +23,16 @@ consumer = KafkaConsumer(
 # Process messages and insert them into MySQL
 for message in consumer:
     data = message.value
-    cursor.execute("""
-        INSERT INTO stocks (index, date, open, high, low , close, adj close, volume, closeusd)
-        VALUES (%s, %s, %s, %s)
-    """, (data['index'], data['date'], data['open'], data['high'], data['low'], data['close'], data['adj close'], data['volume'], data['closeusd']))
-    conn.commit()
+    
+    # Check if all necessary fields are present in the data
+    if all(key in data for key in ['index', 'date', 'open', 'high', 'low', 'close', 'adj close', 'volume', 'closeusd']):
+        cursor.execute("""
+            INSERT INTO stocks (index_name, timestamp, open, high, low, close, adj_close, volume, closeusd)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, (data['index'], data['date'], data['open'], data['high'], data['low'], data['close'], data['adj close'], data['volume'], data['closeusd']))
+        conn.commit()
+    else:
+        print("Missing required keys in data:", data)
 
 cursor.close()
 conn.close()
